@@ -37,41 +37,39 @@ class _PlayQuizState extends State<PlayQuiz>
     //Inicio Carga cuestionario
     questions = getQuestions("1");
     //if(questions.length>0) {
-      controller =
-          AnimationController(
-              duration: const Duration(seconds: 1), vsync: this);
-      animation = Tween(begin: beginAnim, end: endAnim).animate(controller)
-        ..addListener(() {
-          setState(() {
-            // Change here any Animation object value.
-            //stopProgress();
-          });
+    controller =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    animation = Tween(begin: beginAnim, end: endAnim).animate(controller)
+      ..addListener(() {
+        setState(() {
+          // Change here any Animation object value.
+          //stopProgress();
         });
-
-      startProgress();
-
-      animation.addStatusListener((AnimationStatus animationStatus) {
-        if (animationStatus == AnimationStatus.completed) {
-          if (index < questions.length - 1) {
-            //index++;
-            //resetProgress();
-            //startProgress();
-          } else {
-            // Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => Result(
-            //               score: points,
-            //               totalQuestion: questions.length,
-            //               correct: correct,
-            //               incorrect: incorrect,
-            //             )));
-          }
-        }
       });
 
-      //Fin cuestionario
+    startProgress();
 
+    animation.addStatusListener((AnimationStatus animationStatus) {
+      if (animationStatus == AnimationStatus.completed) {
+        if (index < questions.length - 1) {
+          //index++;
+          //resetProgress();
+          //startProgress();
+        } else {
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => Result(
+          //               score: points,
+          //               totalQuestion: questions.length,
+          //               correct: correct,
+          //               incorrect: incorrect,
+          //             )));
+        }
+      }
+    });
+
+    //Fin cuestionario
   }
 
   startProgress() {
@@ -125,7 +123,9 @@ class _PlayQuizState extends State<PlayQuiz>
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(
-                        questions.length>0?"${index + 1}/${questions.length}":'X',
+                        questions.length > 0
+                            ? "${index + 1}/${questions.length}"
+                            : 'X',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.w500),
                       ),
@@ -179,11 +179,12 @@ class _PlayQuizState extends State<PlayQuiz>
               'Pregunta',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14,),
+                color: Colors.black87,
+                fontSize: 14,
+              ),
             ),
             Text(
-              questions.length>0 ?  questions[index].getQuestion1() + ".":'',
+              questions.length > 0 ? questions[index].getQuestion1() + "." : '',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.blue,
@@ -194,7 +195,7 @@ class _PlayQuizState extends State<PlayQuiz>
               height: 5,
             ),
             Text(
-              questions.length>0?questions[index].getQuestion() + "?":'',
+              questions.length > 0 ? questions[index].getQuestion() + "?" : '',
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.black87,
@@ -208,7 +209,9 @@ class _PlayQuizState extends State<PlayQuiz>
                 child: LinearProgressIndicator(
               value: animation.value,
             )),
-            CachedNetworkImage(imageUrl: questions.length>0?questions[index].getImageUrl():''),
+            CachedNetworkImage(
+                imageUrl:
+                    questions.length > 0 ? questions[index].getImageUrl() : ''),
             Spacer(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
@@ -218,7 +221,7 @@ class _PlayQuizState extends State<PlayQuiz>
                   Expanded(
                       child: GestureDetector(
                     onTap: () {
-                      if(index+1< questions.length) {
+                      if (index + 1 < questions.length) {
                         if (questions[index].getAnswer() == "True") {
                           setState(() {
                             points = points + 1;
@@ -255,7 +258,7 @@ class _PlayQuizState extends State<PlayQuiz>
                   Expanded(
                       child: GestureDetector(
                     onTap: () {
-                      if(index+1  < questions.length) {
+                      if (index + 1 < questions.length) {
                         if (questions[index].getAnswer() == "False") {
                           setState(() {
                             points = points + 1;

@@ -1,8 +1,9 @@
 import 'Package:flutter/material.dart';
-import 'package:cook/Pages/Consumos_add.dart';
+// import 'package:cook/Pages/Consumos_add.dart';
 import 'package:cook/models/Logina.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -11,7 +12,7 @@ import '../Widgets/circle.dart';
 import '../Widgets/input.dart';
 
 import '../services/Services_usuarios.dart';
-import '../models/Employee.dart';
+// import '../models/Employee.dart';
 
 import '../bd/sqlitedb.dart';
 import '../models/Logina.dart';
@@ -25,8 +26,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   MemoDbProvider memoDb = MemoDbProvider();
   Future<bool> _onBackPressed() {
-    //Navigator.pushNamed(context, 'principal');
-    false;
+    return Navigator.pushNamed(context, 'principal');
   }
 
   TextEditingController _emailController;
@@ -49,11 +49,23 @@ class _LoginPageState extends State<LoginPage> {
       if (_claveController.text.isNotEmpty ||
           _emailController.text.isNotEmpty) {
         String clv = _claveController.text;
+        // print('clave enviada $clv1');
 
         // String clv = generateMd5(_claveController.text);
+        // print('clave enviada $clv1');
+
+        // var key = utf8.encode('AuthorizationKey');
+        // var bytes = utf8.encode("Yanneri3103");
+
+        // var hmacSha256 = new Hmac(sha224, key); // HMAC-SHA256
+        // var digest = hmacSha256.convert(bytes);
+
+        // // print("HMAC digest as bytes: ${digest.bytes}");
+        // print("HMAC digest as hex string: $digest");
 
         Services_usuarios.loginEmployee(_emailController.text, clv)
             .then((result) {
+          // if ('success' == result.trim()) {
           if ('success' == result.trim()) {
             final logina = Logina(
                 usuario: _emailController.text,

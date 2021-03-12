@@ -55,4 +55,3 @@ flutter:
     - lib/images/serverDown.svg
 
   uses-material-design: true
-  
